@@ -1,0 +1,101 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:compilerservices="using:System.Runtime.CompilerServices"
+        xmlns:local="using:AvaloniaApplication1"
+        xmlns:viewmodels="using:AvaloniaApplication1.ViewModels"
+        x:DataType="viewmodels:MainWindowViewModel"
+        x:Class="AvaloniaApplication1.MainWindow"
+        Title="AvaloniaApplication1"
+        Width="1200" Height="800"
+        MinWidth="1000" MaxHeight="600">
+
+    <Window.DataContext>
+        vm:MainWindowViewModel />
+    </Window.DataContext>
+    
+    <DockPanel> <!--Панелька сверху-->
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header ="Файл">
+                <MenuItem Header="Новая задача" Command="{Binding NewProjectCommand}"/>
+                <MenuItem Header="Загрузить проект..." Command="{Binding LoadProjectCommand}"/>
+                <MenuItem Header="Сохранить проект..." Command="{Binding SaveProjectCommand}"/>
+                <Separator />
+                <MenuItem Header="Выход" Command="{Binding ExitCommand}"/>
+            </MenuItem>
+            <MenuItem Header="Расчет">
+                <MenuItem Header="Выполнить расчет" Command="{Binding CalculateCommand}"/>
+                <MenuItem Header="Остановить" Command="{Binding StopCalculationCommand}"/>
+            </MenuItem>
+            <MenuItem Header="Справка">
+                <MenuItem Header="О программе" Command="{Binding AboutCommand}"/>
+            </MenuItem>
+        </Menu>
+
+        <!--Статус задачи-->
+        <Border DockPanel.Dock="Bottom"
+                Background="#f0f0f0"
+                Height="25"
+                Padding="10,0"
+                >
+			<Grid>
+				<TextBlock Text="{Binding StatusMessage}" VerticalAlignment="Center" FontSize="12"/>
+            </Grid>
+        </Border>
+
+        <Grid> 
+            <!--<StackPanel Grid.Column="0" Background="#f5f5f5">
+				<TextBlock Text="Навигация" FontWeight="Bold" Margin="0,0,0,10"/>
+
+                <Button Content="Геометрия и сетка"
+                        Command=""
+                        CommandParameter=""
+                        Margin="0,2"/>
+                <Button Content="Параметры задачи"
+                        Command=""
+                        CommandParameter=""
+                        Margin="0,2"/>
+                <Button Content="Граничные условия"
+                        Command=""
+                        CommandParameter=""
+                        Margin="0,2"/>
+                <Button Content="Решение"
+                        Command=""
+                        CommandParameter=""
+                        Margin="0,2"/>
+                <Button Content="Результаты"
+                        Command=""
+                        CommandParameter=""
+                        Margin="0,2"/>
+
+                <Separator Margin="0,20,0,10"/>
+
+                <Button Content="Выполнить расчет" 
+                        Command=""
+                        Background="#007acc"
+                        Foreground="White"
+                        FontWeight="Bold"
+                        Padding="15,8"/>
+            </StackPanel>-->
+
+            <TabControl Grid.Column="1"
+                        SelectedIndex=""
+                        Padding="10">
+                <TabItem Header="Геометрия и сетка">
+					<TextBlock Text="Тут Геометрия" VerticalAlignment="Center" HorizontalAlignment="Center"/> 
+                </TabItem>
+                <TabItem Header="Параметры задачи">
+					<TextBlock Text="Тут Параметры" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </TabItem>
+                <TabItem Header="Граничные условия">
+					<TextBlock Text="Тут Условия" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </TabItem>
+                <TabItem Header="Решение">
+					<TextBlock Text="Тут Решение" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </TabItem>
+                <TabItem Header="Результаты">
+					<TextBlock Text="Тут Результаты" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </DockPanel>
+</Window>
