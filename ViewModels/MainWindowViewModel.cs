@@ -1,58 +1,43 @@
-﻿using Avalonia.Threading;
+﻿using ReactiveUI;
 using System;
-using System.ComponentModel;
-using System.Windows.Input;
+using System.Reactive;
 
 namespace AvaloniaApplication1.ViewModels
 {
-    public class MainWindowViewModel: ViewModelBase
+    public partial class MainWindowViewModel : ViewModelBase
     {
-        private string _statusMessage = "Готов к работе";
         private int _selectedTabIndex = 0;
+        private string _statusMessage = "Готов к работе";
 
         public string StatusMessage
         {
             get => _statusMessage;
-            set => SetField(ref _statusMessage, value);
+            set => this.RaiseAndSetIfChanged(ref _statusMessage, value);
         }
 
         public int SelectedTabIndex
         {
             get => _selectedTabIndex;
-            set => SetField(ref _selectedTabIndex, value);
+            set => this.RaiseAndSetIfChanged(ref _selectedTabIndex, value);
         }
 
-        // Команды меню
-        public ICommand NewProjectCommand { get; }
-        public ICommand LoadProjectCommand { get; }
-        public ICommand SaveProjectCommand { get; }
-        public ICommand ExitCommand { get; }
-        public ICommand CalculateCommand { get; }
-        public ICommand StopCalculationCommand { get; }
-        public ICommand AboutCommand { get; }
-
-        // Команда навигации
-        public ICommand NavigateCommand { get; }
+        public ReactiveCommand<Unit, Unit> NewProjectCommand { get; }
+        public ReactiveCommand<Unit, Unit> LoadProjectCommand { get; }
+        public ReactiveCommand<Unit, Unit> SaveProjectCommand { get; }
+        public ReactiveCommand<Unit, Unit> ExitCommand { get; }
+        public ReactiveCommand<Unit, Unit> CalculateCommand { get; }
+        public ReactiveCommand<Unit, Unit> StopCalculationCommand { get; }
+        public ReactiveCommand<Unit, Unit> AboutCommand { get; }
 
         public MainWindowViewModel()
         {
-            // Инициализация команд
-            NewProjectCommand = new RelayCommand(NewProject);
-            LoadProjectCommand = new RelayCommand(LoadProject);
-            SaveProjectCommand = new RelayCommand(SaveProject);
-            ExitCommand = new RelayCommand(Exit);
-            CalculateCommand = new RelayCommand(Calculate);
-            StopCalculationCommand = new RelayCommand(StopCalculation);
-            AboutCommand = new RelayCommand(ShowAbout);
+            NewProjectCommand = ReactiveCommand.Create(() => { StatusMessage = "Создан новый проект"; });
+            LoadProjectCommand = ReactiveCommand.Create(() => { StatusMessage = "Загрузка проекта.."; });
+            SaveProjectCommand = ReactiveCommand.Create(() => { StatusMessage = "Сохранение проекта.."; });
+            ExitCommand = ReactiveCommand.Create(() => { Environment.Exit(0); });
+            CalculateCommand = ReactiveCommand.Create(() => { StatusMessage = "Выполняется расчет.."; });
+            StopCalculationCommand = ReactiveCommand.Create(() => { StatusMessage = "Расчет остановлен"; });
+            AboutCommand = ReactiveCommand.Create(() => { StatusMessage = "О программе"; });
         }
-
-        private void NewProject() => StatusMessage = "Создан новый проект";
-        private void LoadProject() => StatusMessage = "Загрузка проекта...";
-        private void SaveProject() => StatusMessage = "Сохранение проекта...";
-        private void Exit() => Environment.Exit(0);
-        private void Calculate() => StatusMessage = "Выполняется расчет...";
-        private void StopCalculation() => StatusMessage = "Расчет остановлен";
-        private void ShowAbout() => StatusMessage = "О программе";
-
     }
 }

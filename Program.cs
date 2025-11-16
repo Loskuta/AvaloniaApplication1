@@ -1,5 +1,6 @@
 ﻿using System;
 using Avalonia;
+using ReactiveUI.Avalonia;
 
 namespace AvaloniaApplication1
 {
@@ -17,6 +18,7 @@ namespace AvaloniaApplication1
             => AppBuilder.Configure<App>()
                 .UsePlatformDetect()
                 .WithInterFont()
+                .UseReactiveUI()
                 .LogToTrace();
     }
 }

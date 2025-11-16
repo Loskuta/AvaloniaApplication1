@@ -8,10 +8,6 @@
         Title="AvaloniaApplication1"
         Width="1200" Height="800"
         MinWidth="1000" MaxHeight="600">
-
-    <Window.DataContext>
-        vm:MainWindowViewModel />
-    </Window.DataContext>
     
     <DockPanel> <!--Панелька сверху-->
         <Menu DockPanel.Dock="Top">
